@@ -1,0 +1,232 @@
+[
+  {
+    "model": "CineBoard.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Боевик"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Драма"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Комедия"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Мультфильм"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 5,
+    "fields": {
+      "name": "Триллер"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 6,
+    "fields": {
+      "name": "Ужасы"
+    }
+  },
+  {
+    "model": "CineBoard.genre",
+    "pk": 7,
+    "fields": {
+      "name": "Фантастика"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 1,
+    "fields": {
+      "title": "Интерстеллар",
+      "description": "Команда исследователей отправляется через червоточину в поисках нового дома для человечества.",
+      "poster": "",
+      "director": "Кристофер Нолан",
+      "year": 2014,
+      "duration": 169,
+      "country": "США",
+      "genres": [
+        7,
+        2
+      ],
+      "created_at": "2026-11-17T12:01:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 2,
+    "fields": {
+      "title": "Оно",
+      "description": "Группа подростков сталкивается с древним злом, принимающим облик клоуна Пеннивайза.",
+      "poster": "",
+      "director": "Андрес Мускетти",
+      "year": 2017,
+      "duration": 135,
+      "country": "США",
+      "genres": [
+        6,
+        5
+      ],
+      "created_at": "2026-11-17T12:02:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 3,
+    "fields": {
+      "title": "Заклятие",
+      "description": "Паранормальные исследователи помогают семье, которую терроризирует тёмная сущность.",
+      "poster": "",
+      "director": "Джеймс Ван",
+      "year": 2013,
+      "duration": 112,
+      "country": "США",
+      "genres": [
+        6,
+        5
+      ],
+      "created_at": "2026-11-17T12:03:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 4,
+    "fields": {
+      "title": "Тихое место",
+      "description": "Семья выживает в мире, где монстры охотятся на звук.",
+      "poster": "",
+      "director": "Джон Красински",
+      "year": 2018,
+      "duration": 90,
+      "country": "США",
+      "genres": [
+        6,
+        7,
+        5
+      ],
+      "created_at": "2026-11-17T12:04:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 5,
+    "fields": {
+      "title": "Начало",
+      "description": "Вор, крадущий секреты из снов, получает задание внедрить идею в сознание человека.",
+      "poster": "",
+      "director": "Кристофер Нолан",
+      "year": 2010,
+      "duration": 148,
+      "country": "США",
+      "genres": [
+        7,
+        1,
+        5
+      ],
+      "created_at": "2026-11-17T12:05:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 6,
+    "fields": {
+      "title": "1+1",
+      "description": "Аристократ, прикованный к креслу, нанимает в помощники парня из пригорода.",
+      "poster": "",
+      "director": "Оливье Накаш",
+      "year": 2011,
+      "duration": 112,
+      "country": "Франция",
+      "genres": [
+        2,
+        3
+      ],
+      "created_at": "2026-11-17T12:06:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 7,
+    "fields": {
+      "title": "Душа",
+      "description": "Учитель музыки попадает в мир душ и пытается вернуться на Землю.",
+      "poster": "",
+      "director": "Пит Доктер",
+      "year": 2020,
+      "duration": 100,
+      "country": "США",
+      "genres": [
+        4,
+        3
+      ],
+      "created_at": "2026-11-17T12:07:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 8,
+    "fields": {
+      "title": "Матрица",
+      "description": "Хакер Нео узнаёт, что мир вокруг — компьютерная симуляция.",
+      "poster": "",
+      "director": "Лана и Лилли Вачовски",
+      "year": 1999,
+      "duration": 136,
+      "country": "США",
+      "genres": [
+        7,
+        1
+      ],
+      "created_at": "2026-11-17T12:08:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 9,
+    "fields": {
+      "title": "Джокер",
+      "description": "История неудачливого комика, превращающегося в главного злодея Готэма.",
+      "poster": "",
+      "director": "Тодд Филлипс",
+      "year": 2019,
+      "duration": 122,
+      "country": "США",
+      "genres": [
+        2,
+        5
+      ],
+      "created_at": "2026-11-17T12:09:00Z"
+    }
+  },
+  {
+    "model": "CineBoard.movie",
+    "pk": 10,
+    "fields": {
+      "title": "Курманжан датка",
+      "description": "Историческая драма о легендарной правительнице алайских киргизов.",
+      "poster": "",
+      "director": "Садык Шер-Нияз",
+      "year": 2014,
+      "duration": 135,
+      "country": "Кыргызстан",
+      "genres": [
+        2
+      ],
+      "created_at": "2026-11-17T12:10:00Z"
+    }
+  }
+]

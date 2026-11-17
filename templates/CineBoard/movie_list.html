@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if current_genre %}{{ current_genre.name }}{% elif query %}Поиск: {{ query }}{% else %}Все фильмы{% endif %} — CineBoard{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if current_genre %}Жанр: {{ current_genre.name }}
+        {% elif query %}Результаты поиска
+        {% else %}Все фильмы{% endif %}
+    </h1>
+
+    <!-- ПОИСК по названию -->
+    <form action="{% url 'movie_search' %}" method="get" class="search">
+        <input type="search" name="q" value="{{ query }}" placeholder="Название фильма">
+        <button type="submit" class="btn">Найти</button>
+    </form>
+
+    <!-- ФИЛЬТР по жанру -->
+    <div class="genres">
+        <a href="{% url 'movie_list' %}" class="chip {% if not current_genre and not query %}active{% endif %}">Все</a>
+        {% for genre in genres %}
+            <a href="{% url 'genre_movies' genre.id %}" class="chip {% if current_genre.id == genre.id %}active{% endif %}">{{ genre.name }}</a>
+        {% endfor %}
+    </div>
+
+    {% if movies %}
+        <div class="grid">
+            {% for movie in movies %}
+                <a href="{% url 'movie_detail' movie.id %}" class="card">
+                    {% if movie.poster %}
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    {% else %}
+                        <div class="no-poster">🎬</div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h3>{{ movie.title }}</h3>
+                        <div class="muted">{{ movie.year }} · {{ movie.genres.all|join:", " }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?{% if query %}q={{ query|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">&laquo;</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <span class="current">{{ num }}</span>
+                    {% else %}
+                        <a href="?{% if query %}q={{ query|urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a href="?{% if query %}q={{ query|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">&raquo;</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% elif query %}
+        <p>По запросу «{{ query }}» ничего не найдено.</p>
+    {% else %}
+        <p>Фильмов пока нет.</p>
+    {% endif %}
+{% endblock %}

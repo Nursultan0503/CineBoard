@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ movie.title }} — CineBoard{% endblock %}
+
+{% block content %}
+    <div class="detail">
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <div class="no-poster">🎬</div>
+        {% endif %}
+
+        <div class="detail-info">
+            <h1>{{ movie.title }}</h1>
+            <div class="genres">
+                {% for genre in movie.genres.all %}
+                    <a href="{% url 'genre_movies' genre.id %}" class="chip">{{ genre.name }}</a>
+                {% endfor %}
+            </div>
+            <table class="info">
+                <tr><td>Режиссёр</td><td>{{ movie.director }}</td></tr>
+                <tr><td>Год</td><td>{{ movie.year }}</td></tr>
+                <tr><td>Страна</td><td>{{ movie.country }}</td></tr>
+                <tr><td>Длительность</td><td>{{ movie.duration }} мин.</td></tr>
+            </table>
+            <p>{{ movie.description|linebreaksbr }}</p>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'movie_update' movie.id %}" class="btn btn-light">Редактировать</a>
+                <a href="{% url 'movie_delete' movie.id %}" class="btn">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- VIP-БРОНЬ (один к одному) -->
+    <div class="box" id="vip">
+        <h2>VIP-места</h2>
+        <div class="seats">
+            {% for b in vip_bookings %}<span class="seat taken" title="{{ b.user.username }}">{{ b.seat }}</span>{% endfor %}
+            {% for value, label in vip_form.fields.seat.choices %}<span class="seat">{{ label }}</span>{% endfor %}
+        </div>
+
+        {% if not user.is_authenticated %}
+            <p class="muted"><a href="{% url 'login' %}?next={{ request.path }}">Войдите</a>, чтобы забронировать VIP-место.</p>
+        {% elif my_booking %}
+            <p>Ваша бронь: <b>{{ my_booking.seat }}</b> на «{{ my_booking.movie.title }}».
+               Один человек может занять только одно VIP-место.</p>
+            <form method="post" action="{% url 'vip_cancel' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-light">Отменить бронь</button>
+            </form>
+        {% elif vip_form.fields.seat.choices %}
+            <form method="post" action="{% url 'vip_book' movie.id %}" style="display:flex;gap:8px;max-width:360px">
+                {% csrf_token %}
+                {{ vip_form.seat }}
+                <button type="submit" class="btn">Забронировать</button>
+            </form>
+        {% else %}
+            <p class="muted">Все VIP-места на этот фильм заняты.</p>
+        {% endif %}
+    </div>
+
+    <!-- КОММЕНТАРИИ (один ко многим) -->
+    <div class="box" id="comments">
+        <h2>Комментарии ({{ comments|length }})</h2>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'comment_create' movie.id %}">
+                {% csrf_token %}
+                {{ comment_form.text }}
+                <button type="submit" class="btn" style="margin-top:8px">Отправить</button>
+            </form>
+        {% else %}
+            <p class="muted">Комментарии могут оставлять только авторизованные пользователи.
+               <a href="{% url 'login' %}?next={{ request.path }}">Войти</a></p>
+        {% endif %}
+
+        {% for comment in comments %}
+            <div class="comment">
+                <b>{{ comment.author.username }}</b>
+                <span class="muted">· {{ comment.created_at|date:"d.m.Y H:i" }}</span>
+                <p style="margin:6px 0 0">{{ comment.text|linebreaksbr }}</p>
+            </div>
+        {% empty %}
+            <p class="muted">Комментариев пока нет.</p>
+        {% endfor %}
+    </div>
+
+    <p><a href="{% url 'movie_list' %}">← Все фильмы</a></p>
+{% endblock %}

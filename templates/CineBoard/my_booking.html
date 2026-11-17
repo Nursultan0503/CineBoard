@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Моя VIP-бронь — CineBoard{% endblock %}
+
+{% block content %}
+    <div class="form-box box">
+        <h1>Моя VIP-бронь</h1>
+        {% if booking %}
+            <p>Фильм: <a href="{% url 'movie_detail' booking.movie.id %}">{{ booking.movie.title }}</a></p>
+            <p>Место: <b>{{ booking.seat }}</b></p>
+            <p class="muted">Забронировано {{ booking.created_at|date:"d.m.Y H:i" }}</p>
+            <form method="post" action="{% url 'vip_cancel' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-light">Отменить бронь</button>
+            </form>
+        {% else %}
+            <p>У вас пока нет VIP-брони. Выберите фильм и забронируйте место на его странице.</p>
+        {% endif %}
+    </div>
+{% endblock %}

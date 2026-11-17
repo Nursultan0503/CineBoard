@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — CineBoard{% endblock %}
+
+{% block content %}
+    <div class="form-box">
+        <h1>{{ title }}</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'form_fields.html' %}
+            <button type="submit" class="btn">Сохранить</button>
+            <a href="{% if object %}{% url 'movie_detail' object.id %}{% else %}{% url 'movie_list' %}{% endif %}" class="btn btn-light">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

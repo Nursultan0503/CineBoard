@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Удалить фильм — CineBoard{% endblock %}
+
+{% block content %}
+    <div class="form-box">
+        <h1>Удалить «{{ movie.title }}»?</h1>
+        <p class="muted">Вместе с фильмом удалятся его комментарии и VIP-брони. Это действие нельзя отменить.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Да, удалить</button>
+            <a href="{% url 'movie_detail' movie.id %}" class="btn btn-light">Отмена</a>
+        </form>
+    </div>
+{% endblock %}
